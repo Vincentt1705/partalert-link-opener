@@ -4,15 +4,14 @@
 Currently only works with the PartAlert bot's embedded messages.
 
 To be added if people want it:
-  - Automatically open actual store pages
-        (This will skip the partalert.net page but still include all affiliate links of PartAlert)
-  - Option to disable certain websites
   - Support for #robynhood-alerts channel
+
+You can always request features, just send a message on Discord.
 """
 
 __author__ = "Vincentt1705 (Vincentt#1705 on Discord)"
 __date__ = "25th of March 2021"
-__version__ = "v0.1"
+__version__ = "v0.1.2"
 
 import sys
 import webbrowser
@@ -63,6 +62,25 @@ def open_link(url):
     webbrowser.open(url)
 
 
+def get_amazon_url(url):
+    """
+    This function collects and returns an amazon link
+    that would be linked through the green button on the webpage.
+
+    :param url: An partalert.net link for an amazon product
+    :return: The extracted amazon link to the product
+    """
+    # Split url and filter needed parts
+    asin, price, smid, tag, timestamp, title, tld = url.split("&")
+
+    # For the product id and country search for the last '=' and collect the part after it
+    prod_id, country = (info[info.rfind("=")+1:] for info in (asin, tld))
+
+    # Create full Amazon url
+    url = f"https://www.amazon{country}/dp/{prod_id}?{tag}&linkCode=ogi&th=1&psc=1&{smid}"
+    return url
+
+
 class DiscordLinkOpener(Bot):
     async def on_ready(self):
         print_time(f"Discord Link Opener is ready through user {str(self.user)}")
@@ -85,6 +103,10 @@ class DiscordLinkOpener(Bot):
                         for field in fields:
                             if field["name"] == "Link":
                                 url = field["value"]
+
+                                if embed_dict["author"]["name"].startswith("Amazon"):
+                                    url = get_amazon_url(url)
+
                                 open_link(url)
                                 print_time(f"Link opened from #{message.channel.name}: '{url}'\n")
 
