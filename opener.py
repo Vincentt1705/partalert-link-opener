@@ -1,17 +1,18 @@
 #!usr/bin/env python3
 
 """
-Currently only works with the PartAlert bot's embedded messages.
+WARNING: SELF-BOTTING IS AGAINST DISCORD TOS AND THERE IS THE 
+    POSSIBILITY TO GET BANNED FOR IT EVEN IF THE CHANCE IS LOW!
+    Using this script is at your own risk!
 
-To be added if people want it:
-  - Support for #robynhood-alerts channel
+Currently only works with the PartAlert bot's embedded messages.
 
 You can always request features, just send a message on Discord.
 """
 
 __author__ = "Vincentt1705 (Vincentt#1705 on Discord)"
-__date__ = "25th of March 2021"
-__version__ = "v0.1.2"
+__date__ = "3rd of May 2021"
+__version__ = "v0.1.3"
 
 import sys
 import webbrowser
@@ -95,6 +96,8 @@ class DiscordLinkOpener(Bot):
         if message.guild:
             if message.guild.id == 768363408109469697 and message.channel.name in channels:
                 if any(tagged_role.name in roles for tagged_role in message.role_mentions):
+                    # Override the message to be able to read the embeds (FIX)
+                    message = await self.get_last_msg(message.channel.id)
                     if message.embeds:
                         embed = message.embeds[0]
                         embed_dict = embed.to_dict()
@@ -109,6 +112,16 @@ class DiscordLinkOpener(Bot):
 
                                 open_link(url)
                                 print_time(f"Link opened from #{message.channel.name}: '{url}'\n")
+                  
+    async def get_last_msg(self, channel_id):
+        """
+        Fix to make reading embeds possible
+
+        :param channel_id: The id of the channel you want the latest message from.
+        :return: The latest message in the given channel.
+        """
+        msg = await self.get_channel(channel_id).history(limit=1).flatten()
+        return msg[0]                
 
 
 def main():
