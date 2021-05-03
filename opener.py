@@ -11,8 +11,8 @@ You can always request features, just send a message on Discord.
 """
 
 __author__ = "Vincentt1705 (Vincentt#1705 on Discord)"
-__date__ = "25th of March 2021"
-__version__ = "v0.1.2"
+__date__ = "3rd of May 2021"
+__version__ = "v0.1.3"
 
 import sys
 import webbrowser
