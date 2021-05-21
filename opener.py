@@ -11,8 +11,8 @@ You can always request features, just send a message on Discord.
 """
 
 __author__ = "Vincentt1705 (Vincentt#1705 on Discord)"
-__date__ = "3rd of May 2021"
-__version__ = "v0.1.3"
+__date__ = "21st of May 2021"
+__version__ = "v0.1.4"
 
 import sys
 import webbrowser
@@ -72,7 +72,7 @@ def get_amazon_url(url):
     :return: The extracted amazon link to the product
     """
     # Split url and filter needed parts
-    asin, price, smid, tag, timestamp, title, tld = url.split("&")
+    asin, smid, tag, timestamp, title, tld, token = url.split("&")
 
     # For the product id and country search for the last '=' and collect the part after it
     prod_id, country = (info[info.rfind("=")+1:] for info in (asin, tld))
