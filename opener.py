@@ -63,25 +63,6 @@ def open_link(url):
     webbrowser.open(url)
 
 
-def get_amazon_url(url):
-    """
-    This function collects and returns an amazon link
-    that would be linked through the green button on the webpage.
-
-    :param url: An partalert.net link for an amazon product
-    :return: The extracted amazon link to the product
-    """
-    # Split url and filter needed parts
-    asin, smid, tag, timestamp, title, tld, token = url.split("&")
-
-    # For the product id and country search for the last '=' and collect the part after it
-    prod_id, country = (info[info.rfind("=")+1:] for info in (asin, tld))
-
-    # Create full Amazon url
-    url = f"https://www.amazon{country}/dp/{prod_id}?{tag}&linkCode=ogi&th=1&psc=1&{smid}"
-    return url
-
-
 class DiscordLinkOpener(Bot):
     async def on_ready(self):
         print_time(f"Discord Link Opener is ready through user {str(self.user)}")
@@ -106,9 +87,6 @@ class DiscordLinkOpener(Bot):
                         for field in fields:
                             if field["name"] == "Link":
                                 url = field["value"]
-
-                                if embed_dict["author"]["name"].startswith("Amazon"):
-                                    url = get_amazon_url(url)
 
                                 open_link(url)
                                 print_time(f"Link opened from #{message.channel.name}: '{url}'\n")
