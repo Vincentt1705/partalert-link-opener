@@ -11,8 +11,8 @@ You can always request features, just send a message on Discord.
 """
 
 __author__ = "Vincentt1705 (Vincentt#1705 on Discord)"
-__date__ = "21st of May 2021"
-__version__ = "v0.1.4"
+__date__ = "10th of June 2021"
+__version__ = "v0.1.5"
 
 import sys
 import webbrowser
@@ -43,7 +43,12 @@ channels = [
     "ryzen5900x",
     "ryzen5950x",
     "xbox",
-    "ps5"
+    "ps5",
+    "i5-11400",
+    "i5-11500",
+    "i5-11600",
+    "i7-11700",
+    "i9-11900"
 ]
 
 
