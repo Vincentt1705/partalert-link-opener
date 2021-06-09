@@ -19,7 +19,11 @@ It's the same idea as sheppyh's script but I started fresh and did it my own way
 * Remove all the roles that you don't want to open links from. (It will only open links from messages tagged with one or more of those roles)
 * Remove channels that you don't want to open links from. (Only channels that you're actually in will open)
 6.    Save the file and doubleclick the run.bat file to start the script.
-7.    Wait for the script to automatically open links sent in the chosen discord channels with wanted role tags.
+* If the window instantly closes that means something is wrong. The first thing you can try is to change the text in the run.bat file to 'python opener.py' (so removing the 3).
+* If that does not work try running the script in a normal cmd window. (Go to the folder with the script and type 'cmd' in the file explorer location bar). From there on simply type the following and look what the program will say:
+> python opener.py  
+
+8.    Wait for the script to automatically open links sent in the chosen discord channels with wanted role tags.
 
 # Help  
 The script is made for and on Windows.  
